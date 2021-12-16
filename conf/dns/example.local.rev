@@ -1,0 +1,17 @@
+$TTL 86400
+@ IN SOA dns1.example.local. admin.example.local. (
+                                            2020011800 ;Serial
+                                            3600 ;Refresh
+                                            1800 ;Retry
+                                            604800 ;Expire
+                                            86400 ;Minimum TTL
+)
+
+@ IN NS dns1.example.local.
+dns1	IN A 192.168.0.6
+
+6	IN	PTR	dns1.example.local.
+7	IN	PTR	dns2.example.local.
+8	IN	PTR	dhcp1.example.local.
+9	IN	PTR	dhcp2.example.local.
+10	IN	PTR	mail.example.local.
