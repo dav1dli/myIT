@@ -8,9 +8,10 @@ $TTL 86400
 )
 
 @ IN NS dns1.example.local.
+@ IN NS dns2.example.local.
 
 dns1	IN	A	192.168.0.6
-
+example.local.	IN	A	192.168.0.6
 example.local. IN MX 10 mail.example.local.
 
 dns2	IN	A	192.168.0.7

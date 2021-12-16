@@ -40,6 +40,24 @@ Firewall:
 firewall-cmd  --add-service=dns --zone=public  --permanent
 firewall-cmd --reload
 ```
+# Репликация / slave
+Для более высокой доступности рекомендуется иметь как минимум 2 DNS сервера в сети: 1 master, на котором содержится конфигурация домена и 1 или более slave, который считывает конфигурацию с мастера.
+Слейвом является сервер dns2.example.local. Он считывает данные зоны example.local. с dns1.
+
+* Server/VM: Fedora 35 minimal server
+* IP: 192.168.0.7
+* Host name: dns2.example.local
+
+Установка пакета сервиса: `dnf install -y bind bind-utils`
+
+Конфигурация: conf/dns/named-slave.conf	-> /etc/named.conf (root:named 640)
+
+Проверка: `named-checkconf`
+```
+systemctl start named
+systemctl enable named
+```
+Проверка: `ls /var/named/slaves/`
 
 # Конфигурация клиентов
 
@@ -56,6 +74,8 @@ firewall-cmd --reload
 
 # DNS в контейнере
 TBD
+Возможно, сервис DNS будет переконфигурировать работать в контейнере.
+
 ## Предварительные требования
 * [Контайнер](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/building_running_and_managing_containers/index#con_understanding-the-ubi-micro-images_assembly_types-of-container-images): [ubi8/ubi-micro](https://catalog.redhat.com/software/containers/ubi8/ubi-micro/5ff3f50a831939b08d1b832a)
 * buildah, podman, scopeo
